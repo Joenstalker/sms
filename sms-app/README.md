@@ -1,6 +1,6 @@
 # 🎓 School Management System (SMS) - Student Module
 
-A complete RESTful CRUD application for managing students in a school system, built with **Laravel 11** and **Bootstrap 5**. This application follows the **MVC (Model-View-Controller)** design pattern with full validation, sanitization, and a user-friendly web interface.
+A complete RESTful CRUD application for managing students in a school system, built with **Laravel 12** and **Bootstrap 5**. This application follows the **MVC (Model-View-Controller)** design pattern with full validation, sanitization, and a user-friendly web interface.
 
 ## ✨ Features
 
@@ -73,7 +73,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=sms_app
 DB_USERNAME=root
-DB_PASSWORD=your_password
+DB_PASSWORD=
 ```
 
 **Create the database** using MySQL:
