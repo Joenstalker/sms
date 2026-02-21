@@ -1,14 +1,322 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ config('app.name', 'SMS') }} - School Management System</title>
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .welcome-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 20px;
+        }
+
+        .welcome-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .welcome-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .welcome-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .welcome-header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 0;
+        }
+
+        .welcome-content {
+            padding: 60px 40px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: #e7f1ff;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .cta-section h2 {
+            color: #1b1b1b;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .cta-section p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary-custom:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #67408a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        .info-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .info-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .info-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-list li {
+            padding-left: 30px;
+            margin-bottom: 15px;
+            position: relative;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .info-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .welcome-footer {
+            text-align: center;
+            padding: 30px 40px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .emoji {
+            font-size: 1.1em;
+            margin-right: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .welcome-header {
+                padding: 40px 20px;
+            }
+
+            .welcome-header h1 {
+                font-size: 2rem;
+            }
+
+            .welcome-content {
+                padding: 30px 20px;
+            }
+
+            .feature-grid {
+                gap: 20px;
+            }
+
+            .cta-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="welcome-card">
+            <!-- Header -->
+            <div class="welcome-header">
+                <h1><span class="emoji">🎓</span> SMS</h1>
+                <p>School Management System - Student Module</p>
+            </div>
+
+            <!-- Main Content -->
+            <div class="welcome-content">
+                <!-- Call to Action -->
+                <div class="cta-section">
+                    <h2>Welcome to Your School Management System</h2>
+                    <p>Manage your school's students efficiently with our complete CRUD application</p>
+                    <a href="{{ route('students.index') }}" class="btn-primary-custom">
+                        <span class="emoji">📚</span> Go to Student Management
+                    </a>
+                </div>
+
+                <!-- Features -->
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">➕</span>
+                        <h3>Create Students</h3>
+                        <p>Add new students to the system with complete information including LRN, name, age, and class details.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">📖</span>
+                        <h3>View Records</h3>
+                        <p>Access comprehensive student records with all details in an organized, easy-to-read format.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">✏️</span>
+                        <h3>Edit Information</h3>
+                        <p>Update student information anytime with real-time changes reflected in the system.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🗑️</span>
+                        <h3>Delete Records</h3>
+                        <p>Remove student records with confirmation to prevent accidental deletions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🔒</span>
+                        <h3>Secure System</h3>
+                        <p>All data is validated, sanitized, and protected against common security vulnerabilities.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">📱</span>
+                        <h3>Responsive Design</h3>
+                        <p>Access the system from any device - desktop, tablet, or mobile phone.</p>
+                    </div>
+                </div>
+
+                <!-- About SMS -->
+                <div class="info-section">
+                    <h3>About This System</h3>
+                    <p>
+                        The School Management System (SMS) is a web-based application designed to streamline the management of student records. 
+                        Built with <strong>Laravel 11</strong> and <strong>Bootstrap 5</strong>, this application follows the <strong>MVC (Model-View-Controller)</strong> 
+                        design pattern to ensure clean, maintainable code.
+                    </p>
+                    <h4 style="color: #667eea; margin-top: 30px; margin-bottom: 15px; font-weight: 600;">Key Features:</h4>
+                    <ul class="info-list">
+                        <li>Complete CRUD functionality for student management</li>
+                        <li>Comprehensive input validation and data sanitization</li>
+                        <li>User-friendly web interface with responsive design</li>
+                        <li>RESTful API endpoints for programmatic access</li>
+                        <li>Secure database operations with Laravel Eloquent ORM</li>
+                        <li>Flash messages for user feedback</li>
+                        <li>Error handling and validation error display</li>
+                        <li>Database migrations for easy setup and deployment</li>
+                    </ul>
+                </div>
+
+                <!-- Quick Start -->
+                <div class="info-section" style="margin-top: 30px; background: linear-gradient(135deg, #fff2f2 0%, #f8f9fa 100%);">
+                    <h3>Getting Started</h3>
+                    <ol style="list-style-position: inside; color: #333; line-height: 2;">
+                        <li>Click the <strong>"Go to Student Management"</strong> button above</li>
+                        <li>View all existing students in the list</li>
+                        <li>Click <strong>"Add New Student"</strong> to create new records</li>
+                        <li>Use <strong>Edit</strong> buttons to modify student information</li>
+                        <li>Use <strong>Delete</strong> buttons to remove records</li>
+                        <li>Use <strong>View</strong> buttons to see detailed information</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="welcome-footer">
+                <p><strong>Built with ❤️ using Laravel & Bootstrap</strong></p>
+                <p style="margin-bottom: 0; font-size: 0.85rem;">© 2026 School Management System. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
