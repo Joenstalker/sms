@@ -17,25 +17,29 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'student_lrn' => $this->faker->numerify('############'), // 12 digits
+            'student_lrn' => $this->faker->numerify('260110####'), // 10 digits
             'first_name' => $this->faker->firstName(),
             'middle_name' => $this->faker->lastName(),
             'last_name' => $this->faker->lastName(),
-            'age' => $this->faker->numberBetween(14, 20),
+            'age' => $this->faker->numberBetween(19, 30),
             'year_level' => $this->faker->randomElement([
-                'Grade 7',
-                'Grade 8',
-                'Grade 9',
-                'Grade 10',
-                'Grade 11',
-                'Grade 12'
+                '1st Year',
+                '2nd Year',
+                '3rd Year',
+                '4th Year'
             ]),
             'section' => $this->faker->randomElement([
-                'Diamond',
-                'Emerald',
-                'Ruby',
-                'Sapphire',
-                'Topaz'
+                'T110',
+                'T120',
+                'T130',
+                'T140',
+                'T150',
+                'T160',
+                'T170',
+                'T180',
+                'T190',
+                'T100',
+                'T210'
             ]),
         ];
     }

@@ -40,6 +40,18 @@ class StudentController extends Controller
             'section' => 'required|string|max:30',
         ]);
 
+        // Check for duplicate first_name and last_name combination
+        $existingStudent = Student::where('first_name', $validated['first_name'])
+            ->where('last_name', $validated['last_name'])
+            ->first();
+
+        if ($existingStudent) {
+            return back()->withErrors([
+                'first_name' => 'A student with this first name and last name combination already exists.',
+                'last_name' => 'A student with this first name and last name combination already exists.',
+            ])->withInput();
+        }
+
         // Sanitize inputs
         foreach ($validated as $key => $value) {
             if ($value !== null) {
@@ -87,6 +99,19 @@ class StudentController extends Controller
             'year_level' => 'required|string|max:15',
             'section' => 'required|string|max:30',
         ]);
+
+        // Check for duplicate first_name and last_name combination (excluding current student)
+        $existingStudent = Student::where('first_name', $validated['first_name'])
+            ->where('last_name', $validated['last_name'])
+            ->where('id', '!=', $id)
+            ->first();
+
+        if ($existingStudent) {
+            return back()->withErrors([
+                'first_name' => 'A student with this first name and last name combination already exists.',
+                'last_name' => 'A student with this first name and last name combination already exists.',
+            ])->withInput();
+        }
 
         // Sanitize inputs
         foreach ($validated as $key => $value) {
