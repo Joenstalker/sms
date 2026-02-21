@@ -1,52 +1,464 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎓 School Management System (SMS) - Student Module
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A complete RESTful CRUD application for managing students in a school system, built with **Laravel 11** and **Bootstrap 5**. This application follows the **MVC (Model-View-Controller)** design pattern with full validation, sanitization, and a user-friendly web interface.
 
-## About Laravel
+## ✨ Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- ✅ **Complete CRUD Operations** - Create, Read, Update, Delete students
+- ✅ **Input Validation** - Comprehensive form validation with custom error messages
+- ✅ **Data Sanitization** - HTML encoding and trimming for security
+- ✅ **Responsive UI** - Modern Bootstrap 5 interface
+- ✅ **RESTful API** - JSON API endpoints for all operations
+- ✅ **Database Migrations** - Laravel Schema Builder with proper column types
+- ✅ **Resource Controller** - RESTful routing with 7 standard methods
+- ✅ **Flash Messages** - User feedback on successful operations
+- ✅ **Error Handling** - Proper validation error display
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 📋 Requirements
 
-## Learning Laravel
+Before installation, ensure you have:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- **PHP** >= 8.2
+- **Composer** (PHP dependency manager)
+- **MySQL** or **MariaDB** database
+- **Node.js** (optional, for frontend assets)
+- **Git** (optional, for cloning the repository)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🚀 Installation Guide
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Step 1: Clone the Repository
 
-### Premium Partners
+```bash
+git clone https://github.com/Joenstalker/sms.git
+cd sms/sms-app
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Step 2: Install PHP Dependencies
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Step 3: Create Environment File
 
-## Code of Conduct
+Copy the `.env.example` file to `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Or on Windows:
+
+```bash
+copy .env.example .env
+```
+
+### Step 4: Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+### Step 5: Configure Database
+
+Edit `.env` file and set your database credentials:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sms_app
+DB_USERNAME=root
+DB_PASSWORD=your_password
+```
+
+**Create the database** using MySQL:
+
+```sql
+CREATE DATABASE sms_app;
+```
+
+### Step 6: Run Migrations
+
+```bash
+php artisan migrate
+```
+
+This will create all necessary tables including the `students` table with the following columns:
+- `id` - Auto-increment primary key
+- `student_lrn` - Unique Student Learning Reference Number (12 chars)
+- `first_name` - First name (30 chars)
+- `middle_name` - Middle name (30 chars, nullable)
+- `last_name` - Last name (30 chars)
+- `age` - Student age (integer)
+- `year_level` - Year level in school (15 chars)
+- `section` - Class section (30 chars)
+- `timestamps` - Created at & Updated at timestamps
+
+### Step 7: (Optional) Seed Database with Test Data
+
+```bash
+php artisan db:seed
+```
+
+This will populate the database with sample student records.
+
+### Step 8: Start the Development Server
+
+```bash
+php artisan serve
+```
+
+The application will be available at: **http://127.0.0.1:8000**
+
+---
+
+## 📖 Web Interface Usage
+
+### Access the Application
+
+Visit `http://127.0.0.1:8000/students` in your browser.
+
+### 1. View All Students
+
+- **URL:** `http://127.0.0.1:8000/students`
+- Displays a table of all students in the database
+- Shows actions: View, Edit, Delete for each student
+
+### 2. Create a New Student
+
+1. Click **"Add New Student"** button
+2. Fill in the form with student details:
+   - **Student LRN** (required, max 12 chars, unique)
+   - **First Name** (required, max 30 chars)
+   - **Middle Name** (optional, max 30 chars)
+   - **Last Name** (required, max 30 chars)
+   - **Age** (required, 1-100)
+   - **Year Level** (required, max 15 chars)
+   - **Section** (required, max 30 chars)
+3. Click **"Create Student"** button
+4. Success message will appear with redirect to student list
+
+### 3. View Student Details
+
+1. Click **"View"** button next to a student
+2. See all student information on a detailed page
+3. Option to: Edit, Delete, or Go Back to List
+
+### 4. Edit Student Information
+
+1. Click **"Edit"** button next to a student
+2. Update any field with new information
+3. Click **"Update Student"** button
+4. Success message will appear
+
+### 5. Delete a Student
+
+1. Click **"Delete"** button next to a student
+2. Confirm deletion in the confirmation dialog
+3. Student will be removed from the database
+
+---
+
+## 🔌 REST API Endpoints
+
+The application provides full RESTful API access to student data in JSON format.
+
+### Base URL
+```
+http://127.0.0.1:8000/api/students
+```
+
+### API Endpoints
+
+#### 1. Get All Students
+```
+GET /api/students
+```
+
+**Response:** 200 OK
+```json
+[
+  {
+    "id": 1,
+    "student_lrn": "202400000001",
+    "first_name": "John",
+    "middle_name": "Paul",
+    "last_name": "Doe",
+    "age": 16,
+    "year_level": "Grade 10",
+    "section": "A",
+    "created_at": "2026-02-21T06:32:12.000000Z",
+    "updated_at": "2026-02-21T06:32:12.000000Z"
+  }
+]
+```
+
+#### 2. Get Single Student
+```
+GET /api/students/{id}
+```
+
+**Example:**
+```
+GET /api/students/1
+```
+
+**Response:** 200 OK
+```json
+{
+  "id": 1,
+  "student_lrn": "202400000001",
+  "first_name": "John",
+  "middle_name": "Paul",
+  "last_name": "Doe",
+  "age": 16,
+  "year_level": "Grade 10",
+  "section": "A",
+  "created_at": "2026-02-21T06:32:12.000000Z",
+  "updated_at": "2026-02-21T06:32:12.000000Z"
+}
+```
+
+#### 3. Create New Student
+```
+POST /api/students
+Content-Type: application/json
+
+{
+  "student_lrn": "202400000002",
+  "first_name": "Jane",
+  "middle_name": "Marie",
+  "last_name": "Smith",
+  "age": 15,
+  "year_level": "Grade 9",
+  "section": "B"
+}
+```
+
+**Response:** 201 Created
+```json
+{
+  "id": 2,
+  "student_lrn": "202400000002",
+  "first_name": "Jane",
+  "middle_name": "Marie",
+  "last_name": "Smith",
+  "age": 15,
+  "year_level": "Grade 9",
+  "section": "B",
+  "created_at": "2026-02-21T10:15:30.000000Z",
+  "updated_at": "2026-02-21T10:15:30.000000Z"
+}
+```
+
+#### 4. Update Student
+```
+PUT /api/students/{id}
+Content-Type: application/json
+
+{
+  "student_lrn": "202400000001",
+  "first_name": "Jonathan",
+  "middle_name": "Paul",
+  "last_name": "Doe",
+  "age": 17,
+  "year_level": "Grade 11",
+  "section": "A"
+}
+```
+
+**Response:** 200 OK
+```json
+{
+  "id": 1,
+  "student_lrn": "202400000001",
+  "first_name": "Jonathan",
+  "middle_name": "Paul",
+  "last_name": "Doe",
+  "age": 17,
+  "year_level": "Grade 11",
+  "section": "A",
+  "created_at": "2026-02-21T06:32:12.000000Z",
+  "updated_at": "2026-02-21T10:20:45.000000Z"
+}
+```
+
+#### 5. Delete Student
+```
+DELETE /api/students/{id}
+```
+
+**Example:**
+```
+DELETE /api/students/1
+```
+
+**Response:** 204 No Content
+
+---
+
+## 📡 API Testing with cURL
+
+### Get All Students
+```bash
+curl -X GET http://127.0.0.1:8000/api/students
+```
+
+### Create a Student
+```bash
+curl -X POST http://127.0.0.1:8000/api/students \
+  -H "Content-Type: application/json" \
+  -d '{
+    "student_lrn": "202400000003",
+    "first_name": "Michael",
+    "middle_name": "James",
+    "last_name": "Johnson",
+    "age": 16,
+    "year_level": "Grade 10",
+    "section": "C"
+  }'
+```
+
+### Get Specific Student
+```bash
+curl -X GET http://127.0.0.1:8000/api/students/1
+```
+
+### Update a Student
+```bash
+curl -X PUT http://127.0.0.1:8000/api/students/1 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "student_lrn": "202400000001",
+    "first_name": "Updated Name",
+    "age": 18
+  }'
+```
+
+### Delete a Student
+```bash
+curl -X DELETE http://127.0.0.1:8000/api/students/1
+```
+
+---
+
+## 🛡️ Validation Rules
+
+All API and form requests are validated with these rules:
+
+| Field | Rules |
+|-------|-------|
+| `student_lrn` | Required, String, Max 12 chars, Unique in database |
+| `first_name` | Required, String, Max 30 chars |
+| `middle_name` | Optional, String, Max 30 chars |
+| `last_name` | Required, String, Max 30 chars |
+| `age` | Required, Integer, Min 1, Max 100 |
+| `year_level` | Required, String, Max 15 chars |
+| `section` | Required, String, Max 30 chars |
+
+### Validation Error Response
+```json
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "student_lrn": [
+      "The student lrn field is required."
+    ],
+    "age": [
+      "The age must be between 1 and 100."
+    ]
+  }
+}
+```
+
+---
+
+## 🔐 Security Features
+
+1. **CSRF Protection** - All forms include CSRF tokens
+2. **Input Sanitization** - `htmlspecialchars()` encoding prevents XSS attacks
+3. **SQL Injection Prevention** - Laravel's Eloquent ORM uses parameterized queries
+4. **Data Validation** - Server-side validation of all inputs
+5. **Database Integrity** - Unique constraints on Student LRN
+
+---
+
+## 📁 Project Structure
+
+```
+sms-app/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       └── StudentController.php
+│   └── Models/
+│       └── Student.php
+├── database/
+│   ├── migrations/
+│   │   └── 2026_02_21_063212_create_students_table.php
+│   └── seeders/
+│       └── StudentSeeder.php
+├── resources/
+│   └── views/
+│       ├── layouts/
+│       │   └── app.blade.php
+│       └── students/
+│           ├── index.blade.php
+│           ├── create.blade.php
+│           ├── edit.blade.php
+│           └── show.blade.php
+├── routes/
+│   └── web.php
+├── .env
+├── composer.json
+└── README.md
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Database Connection Error
+```
+Error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost'
+```
+**Solution:** Check your `.env` file database credentials match your MySQL setup.
+
+### Key Generation Error
+**Solution:** Run `php artisan key:generate`
+
+### Migration Errors
+**Solution:** Ensure database exists and is created before running migrations.
+
+### 404 Not Found
+**Solution:** Make sure the server is running with `php artisan serve`
+
+---
+
+## 📝 License
+
+This project is open-source and available under the MIT license.
+
+---
+
+## 👨‍💻 Contributing
+
+Contributions are welcome! Feel free to fork the repository and submit pull requests.
+
+---
+
+## 📞 Support
+
+For issues or questions, please create an issue in the [GitHub repository](https://github.com/Joenstalker/sms).
+
+---
+
+**Built with ❤️ using Laravel & Bootstrap**
 
 In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
